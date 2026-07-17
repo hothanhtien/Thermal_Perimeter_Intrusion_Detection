@@ -52,12 +52,17 @@ Dataset có 3 định dạng song song, tất cả đều single-class **Human**
 - **Ảnh thiếu annotation** — có 2 cách tính cho ra 2 con số khác nhau, cần phân biệt rõ:
   - Đối chiếu với txt gốc ở thư mục root: chỉ thiếu **4 ảnh** (`4066`, `6591`, `2932`, `2933`).
   - Đối chiếu với bộ **All_In_One** (nguồn annotation chính thức thực tế đang dùng): thiếu **64 ảnh** (ví dụ: `2381`, `2382`, `2395`, `2396`, `2710`, ...). Lý do: All_In_One là tập con đã lọc của txt root (6.276 vs 6.336 file), ít hơn 60 file so với root.
-  - **=> Con số đúng để tham chiếu trong pipeline là 64**, không phải 4. `docs/dataset.md` hiện đang ghi "4 ảnh thiếu annotation" — **cần cập nhật lại tài liệu này cho khớp với nguồn annotation thực sự được dùng**.
+  - **=> Con số đúng để tham chiếu trong pipeline là 64**, không phải 4. Đã cập nhật `docs/dataset.md` khớp con số này.
   - Sanity check: 5 file mẫu trùng tên giữa root và All_In_One có nội dung giống hệt nhau -> All_In_One đáng tin cậy, chỉ là bản lọc bớt chứ không sai lệch dữ liệu.
 
 ## 3. Kết luận & việc cần làm trước khi tiền xử lý
 
-1. Dedupe 202 nhóm ảnh trùng lặp (218 file) trước khi chia train/val/test, tránh rò rỉ dữ liệu (data leakage).
-2. Quyết định xử lý 64 ảnh thiếu annotation trong bộ All_In_One (loại bỏ hoặc giữ lại làm negative sample).
-3. Cập nhật `docs/dataset.md`: sửa số liệu "4 ảnh thiếu annotation" -> 64 (theo annotation All_In_One).
-4. Không có metadata điều kiện chụp -> không thể phân tích model theo ngày/đêm, khoảng cách, thời tiết.
+1. Dedupe 202 nhóm ảnh trùng lặp (218 file) trước khi chia train/val/test, tránh rò rỉ dữ liệu (data leakage). **Chưa làm** — sẽ thực hiện ở `03_preprocessing.ipynb`.
+2. Quyết định xử lý 64 ảnh thiếu annotation trong bộ All_In_One (loại bỏ hoặc giữ lại làm negative sample). **Chưa làm** — sẽ thực hiện ở `03_preprocessing.ipynb`.
+3. Không có metadata điều kiện chụp -> không thể phân tích model theo ngày/đêm, khoảng cách, thời tiết. Đây là hạn chế cố định của dataset, không có việc cần làm thêm.
+
+## 4. Cập nhật sau báo cáo này
+
+- Đã chốt bài toán: **perimeter intrusion detection** (giám sát an ninh/phát hiện xâm nhập ban đêm) — xem `docs/architecture.md`.
+- Đã cập nhật `docs/dataset.md` khớp số liệu 64 ảnh thiếu annotation (mục 2.4 ở trên).
+- Đã chốt `configs/model.yaml` (yolov8s) và `configs/inference.yaml` (conf_threshold 0.15, ưu tiên recall) theo bài toán trên.
