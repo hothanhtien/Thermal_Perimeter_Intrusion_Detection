@@ -31,6 +31,13 @@ Train / Val / Test: 4.849 / 606 / 606
 vì report đó tính dedupe trên toàn bộ 6.340 ảnh, còn ở đây dedupe chỉ tính trên 6.276 ảnh hợp lệ (đã loại 64 ảnh
 thiếu annotation trước) — một vài cặp trùng lặp có 1 ảnh nằm trong nhóm bị loại đó nên không còn tính là cặp trùng nữa.
 
+### Ảnh trước/sau tăng cường (denoise + CLAHE)
+
+![Trước/sau denoise + CLAHE](figures/03_denoise_clahe_before_after.png)
+
+3 ảnh mẫu ngẫu nhiên - cột trái là ảnh gốc, cột phải là sau bilateral denoise + CLAHE trên kênh L. Có thể
+thấy tương phản vùng người/nền được tăng lên rõ rệt mà không làm lệch màu palette gốc.
+
 ## 4. Output
 
 - `data/processed/images/{train,val,test}/` + `data/processed/labels/{train,val,test}/` — ảnh và label YOLO đã sẵn sàng
@@ -46,6 +53,6 @@ thiếu annotation trước) — một vài cặp trùng lặp có 1 ảnh nằm
 ## 6. Việc cần lưu ý ở bước tiếp theo (04_model.ipynb / 05_training.ipynb)
 
 1. Load dataset trực tiếp qua `data/processed/data.yaml`, không cần parse annotation thủ công nữa.
-2. Object nhỏ, 2 cụm khoảng cách gần/xa (theo `dataset_analysis_report.md`) -> khi cấu hình training cần giữ `image_size: [1280, 960]` như đã chốt trong `configs/model.yaml`, không downscale.
+2. Object nhỏ, 2 cụm khoảng cách gần/xa (theo `dataset_analysis_report.md`) -> ban đầu định giữ `image_size: [1280, 960]`, nhưng **đã đổi xuống `[640, 640]`** do giới hạn GPU 6GB VRAM (xem `reports/training_report.md`).
 3. Nếu sau này cần thêm dữ liệu (ví dụ dataset mới), phải chạy lại pipeline dedupe theo đúng logic ở đây để tránh trùng lặp giữa các nguồn.
 4. `manifest.csv` là nguồn tham chiếu duy nhất cho biết ảnh nào đã bị loại và vì sao — dùng để audit lại nếu nghi ngờ kết quả training bất thường.
