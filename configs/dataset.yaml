@@ -30,6 +30,19 @@ split:
   test: 0.1
   seed: 42
 
+preprocessing:
+  # Ảnh nhiệt colorize bằng palette giả màu, dải sáng hẹp (~70-140/255 theo EDA
+  # notebook 02) -> cần tăng tương phản cục bộ (CLAHE) + giảm nhiễu cảm biến.
+  # Xem src/datasets/preprocessing.py cho implementation.
+  denoise:
+    method: bilateral
+    d: 5
+    sigma_color: 50
+    sigma_space: 50
+  clahe:
+    clip_limit: 2.0
+    tile_grid_size: [8, 8]
+
 known_issues:
   - "202 nhóm ảnh trùng lặp (MD5 giống hệt) -> cần dedupe trước khi split"
   - "64 ảnh thiếu annotation YOLO trong bộ All_In_One (so với 4 ảnh nếu dùng txt ở root)"
