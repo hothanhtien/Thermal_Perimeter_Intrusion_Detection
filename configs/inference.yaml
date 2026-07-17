@@ -5,6 +5,8 @@ device: cuda
 # Tune lại bằng PR-curve ở notebook 06_evaluation.ipynb.
 conf_threshold: 0.15
 iou_threshold: 0.45
-image_size: [1280, 960]
+# image_size phai khop voi imgsz luc train (xem configs/training.yaml) - da doi xuong [640, 640]
+# vi GPU 6GB VRAM OOM o 1280 (xem ghi chu trong configs/model.yaml).
+image_size: [640, 640]
 input_dir: data/sample
 output_dir: outputs/predictions

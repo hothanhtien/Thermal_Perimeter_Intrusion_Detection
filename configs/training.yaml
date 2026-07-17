@@ -15,9 +15,15 @@ scheduler:
 
 training:
   epochs: 100
+  # batch_size: 16 gay OOM tren RTX 3060 Laptop 6GB VRAM o imgsz=1280 (verify thuc te
+  # o 05_training.ipynb). Dung batch=-1 (autobatch cua ultralytics) khi goi model.train()
+  # thay vi con so nay - xem notebook 05 de biet ly do (CUDA OOM lam hong context, khong
+  # the tu retry batch nho hon trong cung 1 process).
   batch_size: 16
   num_workers: 4
-  image_size: [1280, 960]
+  # image_size: da doi tu [1280, 960] xuong [640, 640] - xem ghi chu trong configs/model.yaml
+  # (GPU 6GB VRAM OOM o 1280 ngay ca voi autobatch, verify o 05_training.ipynb).
+  image_size: [640, 640]
   amp: true  # mixed precision, tận dụng GPU
 
 early_stopping:

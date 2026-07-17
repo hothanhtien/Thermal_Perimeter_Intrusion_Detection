@@ -4,14 +4,23 @@ torch==2.11.0+cu128
 torchvision==0.26.0+cu128
 torchaudio==2.11.0+cu128
 
+# Object detection
+ultralytics==8.4.98
+
 # Data & CV
 numpy==2.2.6
 pandas==2.3.3
 pillow==12.2.0
-opencv-python-headless==5.0.0.93
+# opencv-python (KHONG dung ban -headless) - ultralytics can ban day du, cai ca 2
+# cung luc se loi Access denied khi ghi de cv2.pyd (xem reports/training_report.md)
+opencv-python==5.0.0.93
+matplotlib==3.10.9
 
 # Dataset download
 kagglehub==1.0.2
+
+# Training/eval logging
+tensorboard==2.21.0
 
 # Notebook
 jupyter==1.1.1
@@ -19,4 +28,10 @@ ipykernel==7.3.0
 notebook==7.6.0
 
 # Config
-pyyaml
+pyyaml==6.0.3
+
+# Test
+pytest==9.1.1
+
+# Ghi chu: onnx, onnxruntime, onnxslim KHONG can cai san - ultralytics tu dong
+# cai khi goi model.export(format="onnx") lan dau (xem reports/inference_report.md).

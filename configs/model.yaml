@@ -5,4 +5,10 @@ num_classes: 1
 class_names: [Human]
 pretrained: true
 input_channels: 3
-input_size: [1280, 960]  # giữ nguyên resolution gốc, không downscale về 640 - object nhỏ (người ở xa)
+# input_size: da doi tu [1280, 960] xuong [640, 640] (2026-07-17) - quyet dinh ban dau la giu
+# nguyen resolution goc vi object nho (nguoi o xa), nhung thu nghiem thuc te o 05_training.ipynb
+# cho thay GPU RTX 3060 Laptop 6GB VRAM bi OOM ngay ca voi autobatch cua ultralytics o imgsz=1280
+# (feature pyramid o do phan giai cao ton nhieu bo nho activation, doc lap mot phan voi batch size).
+# 640 la to hop chuan, da kiem chung rong rai, chac chan chay duoc tren GPU nay. Danh doi: giam
+# chi tiet nguoi o xa/bbox nho so voi 1280 - can theo doi anh huong recall o 06_evaluation.ipynb.
+input_size: [640, 640]
