@@ -1,0 +1,8 @@
+name: yolov8
+variant: s  # yolov8s - cân bằng tốc độ/độ chính xác, phù hợp RTX 3060 6GB VRAM (n nếu cần nhẹ hơn cho edge deployment)
+task: detection  # perimeter intrusion detection - xem docs/architecture.md
+num_classes: 1
+class_names: [Human]
+pretrained: true
+input_channels: 3
+input_size: [1280, 960]  # giữ nguyên resolution gốc, không downscale về 640 - object nhỏ (người ở xa)

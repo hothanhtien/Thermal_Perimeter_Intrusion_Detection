@@ -1,0 +1,36 @@
+dataset:
+  name: thermal-image-dataset
+  kaggle_slug: animeshmahajan/thermal-image-dataset
+  root_dir: null  # điền path từ kagglehub.dataset_download() hoặc data/external/
+
+image:
+  resolution: [1280, 960]
+  color_mode: RGB
+  format: jpg
+
+classes:
+  - id: 0
+    name: Human
+
+annotations:
+  # Quyết định: dùng bộ "All_In_One" làm nguồn annotation chính thức (KHÔNG dùng
+  # bộ "RGB" - là tập con ít ảnh hơn: 4370/4402 so với 6276/6377).
+  # Lưu ý: All_In_One_Anot_Yolo là tập con đã lọc của txt ở root (6276 vs 6336),
+  # nội dung file trùng tên là giống hệt nhau, chỉ ít hơn 60 file.
+  formats: [yolo, coco, voc]
+  primary_format: yolo
+  yolo_dir: ALL_IN_ONE_RGB_IMG_ANOT/Anotations/All_In_One_Anot_Yolo
+  coco_json: ALL_IN_ONE_RGB_IMG_ANOT/Anotations/All_In_One_Anot_Coco/coco.json
+  voc_dir: ALL_IN_ONE_RGB_IMG_ANOT/Anotations/All_In_One_Anot_voc
+  image_dir: ALL_IN_ONE_RGB_IMG_ANOT          # ảnh .jpg chỉ nằm ở đây (không bị nhân bản)
+
+split:
+  train: 0.8
+  val: 0.1
+  test: 0.1
+  seed: 42
+
+known_issues:
+  - "202 nhóm ảnh trùng lặp (MD5 giống hệt) -> cần dedupe trước khi split"
+  - "64 ảnh thiếu annotation YOLO trong bộ All_In_One (so với 4 ảnh nếu dùng txt ở root)"
+  - "Không có EXIF / camera model / FOV / điều kiện môi trường / timestamp"

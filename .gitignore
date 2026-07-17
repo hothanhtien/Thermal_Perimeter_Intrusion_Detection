@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.Python
+
+# Environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data & outputs (khong commit du lieu lon / artifact sinh ra)
+data/raw/*
+data/external/*
+data/interim/*
+data/processed/*
+data/cache/*
+!data/**/.gitkeep
+
+outputs/checkpoints/*
+outputs/predictions/*
+outputs/visualizations/*
+outputs/tensorboard/*
+outputs/logs/*
+!outputs/**/.gitkeep
+
+# reports/figures va reports/tables DUOC commit (la san pham bao cao, khong phai artifact tam)
+reports/logs/*
+!reports/**/.gitkeep
+
+# Model weights (phong khi luu ngoai outputs/checkpoints)
+*.pt
+*.pth
+*.onnx
+*.h5
+*.ckpt
+
+# Cache cong cu
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Secrets
+.env
+*.key
+kaggle.json

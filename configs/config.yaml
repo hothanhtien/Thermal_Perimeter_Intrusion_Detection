@@ -1,0 +1,9 @@
+# Cau hinh chung - tham chieu cac file con
+defaults:
+  - dataset: dataset.yaml
+  - model: model.yaml
+  - training: training.yaml
+  - inference: inference.yaml
+
+project_name: thermal-ai-project
+random_seed: 42
